@@ -2,6 +2,11 @@ import validaciones from "../helpers/validacion.js";
 
 let listaContactos = [];
 //[{"nombre":"juan","telefonoFijo":"123","celular":"123"}]
+
+/**
+ * Funcion adicionar contacto, recibe un objeto de la clase Contacto definido en index.js
+ * @param {*} Contacto 
+ */
 const adicionarContacto = (Contacto) => {
   if(validaciones.validacionDatos(Contacto)){
       window.alert("Datos incompletos");
@@ -11,18 +16,26 @@ const adicionarContacto = (Contacto) => {
   }
 };
 
+/**
+ * Funcion que verifica la existencia de un contacto, segun el requerimiento la funcion debia recibir un
+ * objeto de tipo Contacto
+ * @param {*} Contacto 
+ * @returns 
+ */
 const ExisteContacto = (Contacto) => {
   let lista = ListarContactos();
   return lista.find(
     (contacto) =>
-      contacto.nombre == Contacto.nombre &&
-      contacto.telefonoFijo == Contacto.telefonoFijo &&
-      contacto.celular == Contacto.celular
+      contacto.nombre == Contacto.nombre 
   )
     ? window.alert("El contacto ya se encuentra registrado")
     : window.alert("EL contacto no se encuentra registrado");
 };
 
+/**
+ * Funcion listar contactos
+ * @returns 
+ */
 const ListarContactos = () => {
     listaContactos = JSON.parse(localStorage.getItem("listaContactos"));
     if(listaContactos.length === 0)
@@ -30,13 +43,23 @@ const ListarContactos = () => {
     return listaContactos;
 };
 
+/**
+ * Funcion BuscarContacto, consulta un contacto tomando como parametro su nombre.
+ * @param {*} nombre :string 
+ * @returns 
+ */
 const BuscarContacto = (nombre) => {
   let lista = ListarContactos();
   let contactoSolicitado = lista.find((contacto) => contacto.nombre === nombre);
+  console.log(contactoSolicitado);
   if (!contactoSolicitado) return "EL contacto ingresado no existe";
-  return contactoSolicitado.telefonoFijo;
+  return contactoSolicitado;
 };
 
+/**
+ * Funcion EliminarContacto que elimina un contacto basado en su nombre, segun el requerimiento 
+ * esta funcion recibe un objeto de tipo Contacto
+ */
 const EliminarContacto = (Contacto) => {
   let lista = ListarContactos();
   let cont = 0;
@@ -50,6 +73,10 @@ const EliminarContacto = (Contacto) => {
   return "Contacto Eliminado";
 };
 
+/**
+ * Retorna un mensaje que indica si el directorio esta lleno o no
+ * @returns 
+ */
 const DirectorioLleno = () => {
   const tamaño = localStorage.getItem("espacioDirectorio");
   const lista = ListarContactos();
@@ -58,6 +85,10 @@ const DirectorioLleno = () => {
     : "El directorio aun no esta lleno";
 };
 
+/**
+ * Funcion que retorna el numero de espacios disponibles en el directorio.
+ * @returns 
+ */
 const EspaciosLibres = () => {
   const tamaño = localStorage.getItem("espacioDirectorio");
   let lista = ListarContactos();
@@ -69,14 +100,7 @@ const EspaciosLibres = () => {
 
 const init = () => {
   localStorage.setItem("listaContactos", JSON.stringify(listaContactos));
-  const tamaño = prompt(
-    "Ingrese el numero maximo de espacios para su directorio, de lo contrario el tamaño por defector sera de 10 espacios"
-  );
-  if (!tamaño) {
-    localStorage.setItem("espacioDirectorio", 10);
-  } else {
-    localStorage.setItem("espacioDirectorio", tamaño);
-  }
+  localStorage.setItem("espacioDirectorio", 10);
 };
 
 export default {
