@@ -1,0 +1,9 @@
+.header{
+    width: 100%;
+    z-index: 1;
+}
+
+.headerStyle{
+    color: white;
+    margin-bottom: 10px;
+}

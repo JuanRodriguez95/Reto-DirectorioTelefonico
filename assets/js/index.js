@@ -56,10 +56,8 @@ listarContactos.onclick=()=>{
 
 eliminar.onclick=()=>{
     const nombre = prompt('Ingrese el nombre del contacto');
-    const telefonoFijo = prompt('Ingrese el telefono fijo');
-    const telefonoCelular = prompt('Ingrese el telefono celular');
     const contacto = new Contacto(
-        nombre,telefonoFijo,telefonoCelular
+        nombre
     );
     window.alert(directorio.EliminarContacto(contacto));
 }
